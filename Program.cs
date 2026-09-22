@@ -2,131 +2,67 @@
 
 public enum PractiseTask
 {
-    Biljetter,
+  Biljetter,
+  Meddelanden,
 }
 
-internal class Program
+internal partial class Program
 {
-    private static void Main(string[] args)
+  static void Main(string[] args)
+  {
+    Person newPerson = new("Janne", 23);
+
+    string p = newPerson.ToString();
+
+    Console.WriteLine(newPerson);
+
+    PractiseTask exercise = PractiseTask.Meddelanden;
+
+    switch (exercise)
     {
-        Person newPerson = new("Janne", 23);
+      case PractiseTask.Biljetter:
+        /* Övning 01 - Biljetter */
+        Ticket ticket = new("Konsert", 500);
+        /* ticket.PrintInfo(); */
 
-        string p = newPerson.ToString();
+        StudentTicket studentTicket = new("Konsert", 500);
+        /*  studentTicket.PrintInfo(); */
 
-        Console.WriteLine(newPerson);
+        VipTicket vipTicket = new("Konsert", 500, "A12", false);
+        /* vipTicket.PrintInfo(); */
 
-        PractiseTask exercise = PractiseTask.Biljetter;
+        ChildTicket childTicket = new("Konsert", 500);
 
-        switch (exercise)
+        List<Ticket> tickets = [ticket, studentTicket, vipTicket, childTicket];
+
+        int totalPrice = 0;
+        foreach (Ticket t in tickets)
         {
-            case PractiseTask.Biljetter:
-                /* Övning 01 - Biljetter */
-                Ticket ticket = new("Konsert", 500);
-                /* ticket.PrintInfo(); */
-
-                StudentTicket studentTicket = new("Konsert", 500);
-                /*  studentTicket.PrintInfo(); */
-
-                VipTicket vipTicket = new("Konsert", 500, "A12");
-                /* vipTicket.PrintInfo(); */
-
-                ChildTicket childTicket = new("Konsert", 500);
-
-                List<Ticket> tickets = [ticket, studentTicket, vipTicket, childTicket];
-
-                int totalPrice = 0;
-                foreach (Ticket t in tickets)
-                {
-                    int price = t.GetPrice();
-                    totalPrice += price;
-                    t.PrintInfo();
-                }
-                Console.WriteLine(totalPrice);
-
-                break;
+          int price = t.GetPrice();
+          totalPrice += price;
+          t.PrintInfo();
         }
+        Console.WriteLine(totalPrice);
+
+        break;
+      case PractiseTask.Meddelanden:
+        // Tre olika meddelandetyper ligger i en lista:
+        List<Message> outbox = new List<Message>
+        {
+          new EmailMessage("anna@mail.se", "Welcome!", "Thanks for signing up."),
+          new SmsMessage("070-123 45 67", "Your code is 4821"),
+          new Message("admin", "Server restarted"),
+          new WarningMessage("user", "fel på nåt"),
+        };
+
+        // Varje meddelande skickas på sitt eget sätt:
+        foreach (Message message in outbox)
+        {
+          message.Send();
+          Console.WriteLine("----");
+        }
+
+        break;
     }
-
-    public class VipTicket(string eventName, int basePrice, string seatNumber)
-        : Ticket(eventName, basePrice)
-    {
-        string SeatNumber { get; set; } = seatNumber;
-
-        public override int GetPrice()
-        {
-            return BasePrice + 300;
-        }
-
-        public override void PrintInfo()
-        {
-            base.PrintInfo();
-            Console.WriteLine($"Plats: {SeatNumber}");
-        }
-    }
-
-    public class Ticket
-    {
-        public string EventName { get; set; }
-        public int BasePrice { get; set; }
-
-        public Ticket(string eventName, int basePrice)
-        {
-            EventName = eventName;
-            BasePrice = basePrice;
-        }
-
-        public virtual int GetPrice()
-        {
-            return BasePrice;
-        }
-
-        public virtual void PrintInfo()
-        {
-            Console.WriteLine($"{EventName}: {GetPrice()} kr");
-        }
-    }
-
-    public class ChildTicket : Ticket
-    {
-        public ChildTicket(string evenName, int basePrice)
-            : base(evenName, basePrice)
-        {
-            BasePrice = basePrice / 2;
-        }
-    }
-
-    public class StudentTicket : Ticket
-    {
-        public StudentTicket(string eventName, int basePrice)
-            : base(eventName, basePrice) { }
-
-        public override int GetPrice()
-        {
-            return BasePrice * 80 / 100;
-        }
-    }
-
-    class Person
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
-
-        public Person(string name, int age)
-        {
-            Name = name;
-            Age = age;
-        }
-
-        public virtual void ShowContactInfo()
-        {
-            Console.WriteLine($"NAME: {Name}, AGE: {Age}");
-        }
-    }
-
-    class Student(string name, int age, string className) : Person(name, age)
-    {
-        public string ClassName { get; set; } = className;
-    }
-
-    /* class Teacher() : Person { } */
+  }
 }
