@@ -11,13 +11,18 @@ public class Message
     Text = text;
   }
 
-  protected string GetContent()
+  protected string GetContentUser()
   {
-    return $"Sending to {Recipient}: {Text}";
+    return $"Sending to {Recipient}: ";
+  }
+
+  protected string GetContentText()
+  {
+    return Text;
   }
 
   public virtual void Send()
   {
-    Console.WriteLine(GetContent());
+    Console.WriteLine(GetContentUser() + GetContentText());
   }
 }
