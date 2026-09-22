@@ -4,11 +4,11 @@ public class WarningMessage(string recipient, string text) : Message(recipient, 
 {
   public override void Send()
   {
-    Console.Write(GetContentUser());
+    Console.Write($"{RecipientPrefix} {Recipient}: ");
     Console.ForegroundColor = ConsoleColor.Black;
     Console.BackgroundColor = ConsoleColor.DarkYellow;
 
-    Console.Write($"VARNING: {GetContentText()}");
+    Console.Write($"VARNING: {Text}");
 
     Console.ResetColor();
     Console.WriteLine();

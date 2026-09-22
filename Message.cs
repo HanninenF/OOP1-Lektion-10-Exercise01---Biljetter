@@ -11,18 +11,10 @@ public class Message
     Text = text;
   }
 
-  protected string GetContentUser()
-  {
-    return $"Sending to {Recipient}: ";
-  }
-
-  protected string GetContentText()
-  {
-    return Text;
-  }
+  protected const string RecipientPrefix = "Sending to";
 
   public virtual void Send()
   {
-    Console.WriteLine(GetContentUser() + GetContentText());
+    Console.WriteLine($"{RecipientPrefix} {Recipient}: {Text}");
   }
 }
