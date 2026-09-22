@@ -47,13 +47,13 @@ internal partial class Program
         break;
       case PractiseTask.Meddelanden:
         // Tre olika meddelandetyper ligger i en lista:
-        List<Message> outbox = new List<Message>
-        {
+        List<Message> outbox =
+        [
           new EmailMessage("anna@mail.se", "Welcome!", "Thanks for signing up."),
           new SmsMessage("070-123 45 67", "Your code is 4821"),
-          new Message("admin", "Server restarted"),
+          new("admin", "Server restarted"),
           new WarningMessage("user", "fel på nåt"),
-        };
+        ];
 
         // Varje meddelande skickas på sitt eget sätt:
         foreach (Message message in outbox)
