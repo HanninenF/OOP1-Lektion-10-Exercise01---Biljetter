@@ -10,7 +10,7 @@ public class EmailMessage : Message
     Subject = subject;
   }
 
-  public override void Send(string warningMessage = "")
+  public override void Send()
   {
     Console.WriteLine($"EMAIL to {Recipient}");
     Console.WriteLine($"Subject: {Subject}");

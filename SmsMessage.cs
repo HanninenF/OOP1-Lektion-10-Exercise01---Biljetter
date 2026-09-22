@@ -7,7 +7,7 @@ internal partial class Program
     public SmsMessage(string phoneNumber, string text)
       : base(phoneNumber, text) { }
 
-    public override void Send(string warningMessage = "")
+    public override void Send()
     {
       // SMS has a length limit
       string shortText = Text.Length > 160 ? Text.Substring(0, 160) : Text;

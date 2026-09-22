@@ -11,10 +11,13 @@ public class Message
     Text = text;
   }
 
-  public virtual void Send(string warningMessage = "")
+  protected string GetContent()
   {
-    Console.Write($"Sending to {Recipient}: {warningMessage}: {Text}");
-    Console.ResetColor();
-    Console.WriteLine();
+    return $"Sending to {Recipient}: {Text}";
+  }
+
+  public virtual void Send()
+  {
+    Console.WriteLine(GetContent());
   }
 }
